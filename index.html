@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scripture & Story: Literary Insight</title>
+    <!-- Load Tailwind CSS for utility classes -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font family for modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Define custom colors */
+        :root {
+            --color-wine-red: #800020;
+            --color-off-white: #fafeff;
+            --color-gold: #B8860B; /* Deep Gold/Tan */
+            --color-teal: #367588; /* Muted Teal/Blue */
+        }
+
+        /* Set the Inter font as default */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--color-wine-red) 0%, var(--color-teal) 100%);
+            min-height: 100vh;
+            color: var(--color-off-white);
+        }
+
+        /* Base Glassmorphism/Liquid Glass Style */
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.15); /* Semi-transparent white */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Book Animation: Subtle hover effect */
+        .story-link {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            transform-origin: left;
+            cursor: pointer;
+        }
+
+        .story-link:hover {
+            /* Simulates a book cover lifting slightly */
+            transform: perspective(1000px) rotateY(-5deg);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Scrollbar styling for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-gold);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom Colors in Tailwind Configuration */
+        .bg-wine-red { background-color: var(--color-wine-red); }
+        .text-wine-red { color: var(--color-wine-red); }
+        .bg-gold { background-color: var(--color-gold); }
+        .text-gold { color: var(--color-gold); }
+        .border-gold { border-color: var(--color-gold); }
+    </style>
+</head>
+<body>
+
+<div id="app" class="p-4 max-w-xl mx-auto">
+    <!-- Header Section -->
+    <header class="text-center mb-6 pt-4">
+        <h1 class="text-4xl font-extrabold tracking-tight text-white">
+            Scripture <span class="text-gold">&</span> Story
+        </h1>
+        <p class="text-lg mt-1 text-off-white" style="color: var(--color-off-white);">
+            Finding God's Word in the World's Best Short Fiction
+        </p>
+    </header>
+
+    <!-- Main Story List View -->
+    <main id="story-list-view">
+        <h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-gold text-gold">
+            The Anthology
+        </h2>
+        <div id="story-list" class="space-y-4">
+            <!-- Story Cards will be inserted here by JavaScript -->
+        </div>
+    </main>
+
+    <!-- Story Detail View (Initially Hidden) -->
+    <section id="story-detail-view" class="hidden">
+        <button onclick="showListView()" class="mb-4 inline-flex items-center text-sm font-medium rounded-full px-4 py-2 bg-gold text-wine-red shadow-lg transition duration-200 hover:bg-opacity-90">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back to Anthology
+        </button>
+
+        <!-- Dynamic Content Area -->
+        <div id="detail-content" class="glass-card p-6 rounded-2xl space-y-6">
+            <!-- Story details will be rendered here -->
+        </div>
+    </section>
+
+</div>
+
+<script>
+    // Define custom color variables for JavaScript use
+    const WINE_RED = '#800020';
+    const OFF_WHITE = '#fafeff';
+    const GOLD = '#B8860B';
+    const TEAL = '#367588';
+
+    // --- Story Data Model ---
+    const storiesData = [
+        {
+            id: 1,
+            title: "Dead Stars",
+            author: "Paz Marquez Benitez",
+            type: "Philippine Literature",
+            summary: "Alfredo Salazar, a middle-aged man engaged to Esperanza, finds himself infatuated with Julia Salas. He postpones his marriage while wrestling with his emotions. Years later, after marrying Esperanza, he visits Julia and realizes that his fleeting passion for her was like a 'dead star'—a light that travels across space, only to be perceived long after its source has died.",
+            analysis: {
+                title: "The Illusion of Lingering Desire",
+                insight: "Alfredo's pursuit of Julia represents the human tendency to chase desires that are beautiful only from a distance, neglecting the covenant and blessings immediately present. His 'dead star' realization is a metaphor for prioritizing fleeting passion over faithful commitment, a lesson echoed throughout scripture.",
+                evidentialText: "\"He knew that he had ceased to love Julia. That was the dead star, the light of which had been travelling towards him through space, but which, when it arrived, was dead.\"",
+                scripture: "Proverbs 21:20 (NIV): 'In the house of the wise are stores of choice food and oil, but a foolish man devours all he has.'\n\n1 Corinthians 10:13 (NIV): 'No temptation has overtaken you except what is common to mankind. And God is faithful; he will not let you be tempted beyond what you can bear. But when you are tempted, he will also provide a way out so that you can endure it.'",
+                reflection: "The sin of discontentment blinds us to the genuine light and commitment we already possess. The ten-year journey to discover the 'dead' nature of the longing shows the cost of unbridled emotional wandering. True wisdom is found in cherishing the covenant, not chasing distant, fading lights.",
+            },
+        },
+        // --- Core Philippine Literature ---
+        { id: 2, title: "The Bread of Salt", author: "N.V.M. Gonzalez", type: "Philippine Literature", analysis: { title: "Placeholder: The Weight of Social Class", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 3, title: "Midsummer", author: "Manuel Arguilla", type: "Philippine Literature", analysis: { title: "Placeholder: Love in the Simplicity of the Field", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 4, title: "Magnificence", author: "Estrella Alfon", type: "Philippine Literature", analysis: { title: "Placeholder: The Protection of the Innocent", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 5, title: "The Summer Solstice", author: "Nick Joaquin", type: "Philippine Literature", analysis: { title: "Placeholder: Authority, Submission, and Power", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 6, title: "The Mats", author: "Francisco Arcellana", type: "Philippine Literature", analysis: { title: "Placeholder: Grief, Memory, and the Resurrection Hope", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+
+        // --- Canonical World Literature ---
+        { id: 7, title: "The Necklace", author: "Guy de Maupassant", type: "World Literature", analysis: { title: "Placeholder: Vanity and the True Cost of Deception", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 8, title: "The Gift of the Magi", author: "O. Henry", type: "World Literature", analysis: { title: "Placeholder: Sacrificial Love vs. Worldly Wisdom", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 9, title: "How Much Land Does a Man Need?", author: "Leo Tolstoy", type: "World Literature", analysis: { title: "Placeholder: The Tyranny of Greed", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 10, title: "The Lottery", author: "Shirley Jackson", type: "World Literature", analysis: { title: "Placeholder: Blind Tradition and Moral Cowardice", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 11, title: "Daedalus and Icarus", author: "Greek Myth", type: "Mythology", analysis: { title: "Placeholder: The Peril of Pride and Disobedience", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 12, title: "The Most Dangerous Game", author: "Richard Connell", type: "World Literature", analysis: { title: "Placeholder: The Depravity of the Human Heart", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 13, title: "The Bet", author: "Anton Chekhov", type: "World Literature", analysis: { title: "Placeholder: The Futility of Earthly Wealth and Wisdom", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 14, title: "The Cask of Amontillado", author: "Edgar Allan Poe", type: "World Literature", analysis: { title: "Placeholder: The Darkness of Unjustified Vengeance", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 15, title: "The Black Cat", author: "Edgar Allan Poe", type: "World Literature", analysis: { title: "Placeholder: The Spiral of Sin and Self-Deception", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 16, title: "A Tell Tale Heart", author: "Edgar Allan Poe", type: "World Literature", analysis: { title: "Placeholder: The Conscience and the Revelation of Guilt", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 17, title: "Araby", author: "James Joyce", type: "World Literature", analysis: { title: "Placeholder: Idolatry and the Empty Promise of the World", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 18, title: "A Rose for Emily", author: "William Faulkner", type: "World Literature", analysis: { title: "Placeholder: Isolation and the Denial of Time", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 19, title: "The Pedestrian", author: "Ray Bradbury", type: "World Literature", analysis: { title: "Placeholder: The Call to Separate from the Crowd", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 20, title: "Hills Like White Elephants", author: "Ernest Hemingway", type: "World Literature", analysis: { title: "Placeholder: The Unspoken Weight of Choice", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+    ];
+
+    // --- Core Functions ---
+
+    // Renders the main list of stories
+    function renderStoryList() {
+        const listContainer = document.getElementById('story-list');
+        listContainer.innerHTML = ''; // Clear previous content
+
+        storiesData.forEach(story => {
+            const isPhilippine = story.type.includes('Philippine');
+            const typeLabel = isPhilippine ? 'Philippine' : 'World';
+            const typeColor = isPhilippine ? 'text-wine-red' : 'text-teal';
+
+            const cardHtml = `
+                <div onclick="showDetailView(${story.id})" class="story-link glass-card p-4 rounded-xl shadow-lg hover:ring-2 hover:ring-gold flex justify-between items-center">
+                    <div>
+                        <h3 class="text-xl font-bold">${story.title}</h3>
+                        <p class="text-sm text-off-white/70">by ${story.author}</p>
+                    </div>
+                    <span class="text-xs font-semibold px-3 py-1 rounded-full bg-gold/80 ${typeColor}">
+                        ${typeLabel}
+                    </span>
+                </div>
+            `;
+            listContainer.innerHTML += cardHtml;
+        });
+    }
+
+    // Renders the detail view for a specific story
+    function renderStoryDetail(story) {
+        const detailContainer = document.getElementById('detail-content');
+        const analysis = story.analysis;
+
+        // Base structure for analysis
+        let detailHtml = `
+            <h2 class="text-3xl font-extrabold text-gold text-center border-b pb-3 border-off-white/30">${story.title}</h2>
+            <p class="text-md text-off-white/70 text-center mb-4">A look at the work of ${story.author} through the lens of Scripture.</p>
+
+            <!-- Story Summary Card -->
+            <div class="glass-card p-4 rounded-xl space-y-2">
+                <h3 class="text-xl font-bold text-teal">Story Summary</h3>
+                <p class="text-sm text-off-white/90">${story.summary || analysis.insight.replace('Placeholder: ', '')}</p>
+            </div>
+
+            <!-- Biblical Insight Card -->
+            <div class="glass-card p-4 rounded-xl space-y-3 border-l-4 border-gold">
+                <h3 class="text-xl font-bold">${analysis.title.replace('Placeholder: ', 'Biblical Insight: ')}</h3>
+                <p class="text-sm text-off-white/90 leading-relaxed">${analysis.insight.replace('Placeholder: ', '')}</p>
+            </div>
+
+            <!-- Evidential Text & Scripture Card -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="glass-card p-4 rounded-xl border-r-4 border-wine-red">
+                    <h4 class="text-lg font-semibold text-wine-red">Evidential Text (Story Quote)</h4>
+                    <p class="text-xs italic text-off-white/80 mt-2 leading-loose">
+                        "${analysis.evidentialText.replace('Placeholder quote...', '...')}"
+                    </p>
+                </div>
+                <div class="glass-card p-4 rounded-xl border-l-4 border-teal">
+                    <h4 class="text-lg font-semibold text-teal">Relevant Scripture</h4>
+                    <p class="text-xs font-mono text-off-white/80 whitespace-pre-line mt-2 leading-loose">
+                        ${analysis.scripture.replace('Placeholder verse...', '...')}</p>
+                </div>
+            </div>
+
+            <!-- Further Reflection -->
+            ${analysis.reflection ? `<div class="p-4 rounded-xl bg-wine-red/40 border border-wine-red shadow-inner">
+                <h4 class="text-lg font-semibold text-gold">Further Reflection</h4>
+                <p class="text-sm text-off-white/90 mt-2">${analysis.reflection}</p>
+            </div>` : ''}
+
+            <p class="text-center text-sm italic text-off-white/60 pt-4">This analysis is designed for critical and spiritual reflection.</p>
+        `;
+
+        detailContainer.innerHTML = detailHtml;
+    }
+
+    // --- Navigation Functions ---
+
+    function showDetailView(id) {
+        const story = storiesData.find(s => s.id === id);
+        if (story) {
+            renderStoryDetail(story);
+            document.getElementById('story-list-view').classList.add('hidden');
+            document.getElementById('story-detail-view').classList.remove('hidden');
+            window.scrollTo(0, 0); // Scroll to top
+        }
+    }
+
+    function showListView() {
+        document.getElementById('story-detail-view').classList.add('hidden');
+        document.getElementById('story-list-view').classList.remove('hidden');
+        window.scrollTo(0, 0); // Scroll to top
+    }
+
+    // Initial render on load
+    document.addEventListener('DOMContentLoaded', renderStoryList);
+</script>
+
+</body>
+</html>
