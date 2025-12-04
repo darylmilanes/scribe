@@ -3,48 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scripture & Story: Literary Insight</title>
+    <title>Scribe: Literary Insight</title>
     <!-- Load Tailwind CSS for utility classes -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Use Inter font family for modern look -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <style>
-        /* Define custom colors */
+        /* Define custom colors (New Light/Bookish Theme) */
         :root {
-            --color-wine-red: #800020;
-            --color-off-white: #fafeff;
-            --color-gold: #B8860B; /* Deep Gold/Tan */
-            --color-teal: #367588; /* Muted Teal/Blue */
+            --color-dark-text: #1E293B;      /* Dark Slate for primary text (replaces wine-red usage) */
+            --color-light-base: #E6F0F4;     /* Light Blue-Gray (Background Start) */
+            --color-light-end: #FAF4E6;      /* Soft Parchment (Background End) */
+            --color-primary-accent: #18636E; /* Muted Sapphire Blue (Main accent color) */
+            --color-secondary-accent: #D98800; /* Muted Ochre/Gold (Button/Highlight) */
+            --color-off-white: #fafeff;      /* Retained White */
         }
 
-        /* Set the Inter font as default */
+        /* Set the Inter font as default, using light colors for the gradient background */
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, var(--color-wine-red) 0%, var(--color-teal) 100%);
+            /* Use new light gradient background */
+            background: linear-gradient(135deg, var(--color-light-base) 0%, var(--color-light-end) 100%);
             min-height: 100vh;
-            color: var(--color-off-white);
+            /* Default text is now dark for readability */
+            color: var(--color-dark-text);
         }
 
         /* Base Glassmorphism/Liquid Glass Style */
         .glass-card {
-            background-color: rgba(255, 255, 255, 0.15); /* Semi-transparent white */
+            /* Higher opacity white works well on a light background */
+            background-color: rgba(255, 255, 255, 0.5); 
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4); /* Stronger border for definition */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* New style for internal boxes - maintains glass effect without distinct border/shadow */
+        .inner-box {
+            /* Very subtle background change for separation */
+            background-color: rgba(255, 255, 255, 0.3); 
+            border: none; 
         }
 
         /* Book Animation: Subtle hover effect */
         .story-link {
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            transform-origin: left;
+            /* FIX: Changed origin to center for balanced scaling effect */
+            transform-origin: center center; 
             cursor: pointer;
         }
 
         .story-link:hover {
-            /* Simulates a book cover lifting slightly */
-            transform: perspective(1000px) rotateY(-5deg);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            /* Simulates a book cover lifting slightly and scaling up slightly */
+            transform: scale(1.02); /* Increased scale slightly */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
 
         /* Scrollbar styling for a cleaner look */
@@ -52,7 +65,7 @@
             width: 8px;
         }
         ::-webkit-scrollbar-thumb {
-            background: var(--color-gold);
+            background: var(--color-primary-accent);
             border-radius: 4px;
         }
         ::-webkit-scrollbar-track {
@@ -60,29 +73,32 @@
         }
 
         /* Custom Colors in Tailwind Configuration */
-        .bg-wine-red { background-color: var(--color-wine-red); }
-        .text-wine-red { color: var(--color-wine-red); }
-        .bg-gold { background-color: var(--color-gold); }
-        .text-gold { color: var(--color-gold); }
-        .border-gold { border-color: var(--color-gold); }
+        .bg-primary-accent { background-color: var(--color-primary-accent); }
+        .text-primary-accent { color: var(--color-primary-accent); }
+        .bg-secondary-accent { background-color: var(--color-secondary-accent); }
+        .text-secondary-accent { color: var(--color-secondary-accent); }
+        .text-dark-text { color: var(--color-dark-text); }
+        .text-off-white { color: var(--color-off-white); } /* Ensure off-white text utility is defined */
     </style>
 </head>
 <body>
 
-<div id="app" class="p-4 max-w-xl mx-auto">
-    <!-- Header Section -->
+<!-- Mobile-first max-w-xl, expanded to max-w-4xl on large screens -->
+<div id="app" class="p-4 max-w-xl lg:max-w-4xl mx-auto">
+    <!-- Header Section (Updated Name) -->
     <header class="text-center mb-6 pt-4">
-        <h1 class="text-4xl font-extrabold tracking-tight text-white">
-            Scripture <span class="text-gold">&</span> Story
+        <!-- Text is now dark, but main title uses the bright accent color -->
+        <h1 class="text-4xl font-extrabold tracking-tight text-primary-accent">
+            Scribe
         </h1>
-        <p class="text-lg mt-1 text-off-white" style="color: var(--color-off-white);">
+        <p class="text-lg mt-1 text-dark-text">
             Finding God's Word in the World's Best Short Fiction
         </p>
     </header>
 
     <!-- Main Story List View -->
     <main id="story-list-view">
-        <h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-gold text-gold">
+        <h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-primary-accent text-primary-accent">
             The Anthology
         </h2>
         <div id="story-list" class="space-y-4">
@@ -92,7 +108,8 @@
 
     <!-- Story Detail View (Initially Hidden) -->
     <section id="story-detail-view" class="hidden">
-        <button onclick="showListView()" class="mb-4 inline-flex items-center text-sm font-medium rounded-full px-4 py-2 bg-gold text-wine-red shadow-lg transition duration-200 hover:bg-opacity-90">
+        <!-- Back button uses the secondary accent color -->
+        <button onclick="showListView()" class="mb-4 inline-flex items-center text-sm font-medium rounded-full px-4 py-2 bg-secondary-accent text-dark-text shadow-lg transition duration-200 hover:bg-opacity-90">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
@@ -108,11 +125,12 @@
 </div>
 
 <script>
-    // Define custom color variables for JavaScript use
-    const WINE_RED = '#800020';
+    // Define custom color variables for JavaScript use (matching CSS variables)
+    const DARK_TEXT = '#1E293B';
+    const PRIMARY_ACCENT = '#18636E';
+    const SECONDARY_ACCENT = '#D98800';
     const OFF_WHITE = '#fafeff';
-    const GOLD = '#B8860B';
-    const TEAL = '#367588';
+    const TEAL = '#367588'; // Keeping original Teal constant just in case, but it's not used visually in this theme
 
     // --- Story Data Model ---
     const storiesData = [
@@ -121,37 +139,67 @@
             title: "Dead Stars",
             author: "Paz Marquez Benitez",
             type: "Philippine Literature",
-            summary: "Alfredo Salazar, a middle-aged man engaged to Esperanza, finds himself infatuated with Julia Salas. He postpones his marriage while wrestling with his emotions. Years later, after marrying Esperanza, he visits Julia and realizes that his fleeting passion for her was like a 'dead star'—a light that travels across space, only to be perceived long after its source has died.",
+            summary: "Alfredo Salazar, a middle-aged man engaged to Esperanza, a woman known for her placid temperament and commitment, finds himself restless and infatuated with the younger, charming visitor, Julia Salas. Over several weeks, Alfredo chases this romantic illusion, viewing Julia as the 'love' he missed. Despite the social and moral pressure to marry Esperanza, he delays his wedding. Years later, after marrying Esperanza, he visits Julia in her hometown and realizes the passionate feeling he held for her is gone. The encounter reveals that the feeling he still sensed was like the light of a 'dead star'—beautiful but detached from its long-extinguished source, confirming that his true love was an illusion all along.",
+            fullText: "https://xpressenglish.com/our-stories/dead-stars/",
             analysis: {
                 title: "The Illusion of Lingering Desire",
                 insight: "Alfredo's pursuit of Julia represents the human tendency to chase desires that are beautiful only from a distance, neglecting the covenant and blessings immediately present. His 'dead star' realization is a metaphor for prioritizing fleeting passion over faithful commitment, a lesson echoed throughout scripture.",
                 evidentialText: "\"He knew that he had ceased to love Julia. That was the dead star, the light of which had been travelling towards him through space, but which, when it arrived, was dead.\"",
                 scripture: "Proverbs 21:20 (NIV): 'In the house of the wise are stores of choice food and oil, but a foolish man devours all he has.'\n\n1 Corinthians 10:13 (NIV): 'No temptation has overtaken you except what is common to mankind. And God is faithful; he will not let you be tempted beyond what you can bear. But when you are tempted, he will also provide a way out so that you can endure it.'",
-                reflection: "The sin of discontentment blinds us to the genuine light and commitment we already possess. The ten-year journey to discover the 'dead' nature of the longing shows the cost of unbridled emotional wandering. True wisdom is found in cherishing the covenant, not chasing distant, fading lights.",
+                reflection: "Alfredo struggled with discontentment, allowing a romantic fantasy (the 'dead star') to overshadow his commitment (Esperanza). How do we, in our modern lives, similarly chase 'dead stars'—whether it's material wealth, unattainable relationships, or idealized pasts—instead of nurturing the present blessings God has provided? Faith calls us to contentment (Philippians 4:11) and commitment to our covenant relationships, recognizing that God provides grace to overcome every temptation (1 Corinthians 10:13).\n\n<span class='font-bold'>What present blessing or covenant commitment in your life are you currently overlooking because you are chasing the fading light of a past or impossible desire?</span>",
             },
         },
         // --- Core Philippine Literature ---
-        { id: 2, title: "The Bread of Salt", author: "N.V.M. Gonzalez", type: "Philippine Literature", analysis: { title: "Placeholder: The Weight of Social Class", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
-        { id: 3, title: "Midsummer", author: "Manuel Arguilla", type: "Philippine Literature", analysis: { title: "Placeholder: Love in the Simplicity of the Field", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
-        { id: 4, title: "Magnificence", author: "Estrella Alfon", type: "Philippine Literature", analysis: { title: "Placeholder: The Protection of the Innocent", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
-        { id: 5, title: "The Summer Solstice", author: "Nick Joaquin", type: "Philippine Literature", analysis: { title: "Placeholder: Authority, Submission, and Power", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
-        { id: 6, title: "The Mats", author: "Francisco Arcellana", type: "Philippine Literature", analysis: { title: "Placeholder: Grief, Memory, and the Resurrection Hope", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { 
+            id: 2, 
+            title: "The Bread of Salt", 
+            author: "N.V.M. Gonzalez", 
+            type: "Philippine Literature", 
+            fullText: "https://xpressenglish.com/our-stories/bread-of-salt/", 
+            summary: "The narrator, a young baker's apprentice and aspiring musician, is deeply infatuated with Aida, the beautiful and wealthy daughter of the family he works for. He practices his violin with intense ambition, hoping to elevate his social status enough to be worthy of her. Invited to a late-night party at Aida's home, his youthful social awkwardness and sharp internal feelings of inadequacy create profound shame. After the party, driven by a mixture of desire and self-contempt, he secretly enters the dining room and attempts to steal a piece of the elaborate, untouched cake. He is caught by Aida and, overwhelmed by the incident, he later flees, realizing his romantic longing for the 'sweet' life he believes Aida represents is ultimately fleeting and secondary to the simple reality of the *pan de sal* (bread of salt) he eats every morning.",
+            analysis: { 
+                title: "The Sweetness of Covetousness and the Bitterness of Shame", 
+                insight: "The story explores how coveting a life beyond one's means (represented by Aida's family's wealth and the untouched cake) leads to deep spiritual and emotional dissatisfaction. The narrator's failure to attain the 'sweet' life causes a profound, shameful fall, mirroring the scriptural warning that the pursuit of external status often destroys inner peace and integrity.", 
+                evidentialText: "I could not stand the sight of the untouched food. It was all a feast that I could not touch. I picked up a piece of the bread of salt and bit into it, trying to drown the sweetness in the salt.", 
+                scripture: "Proverbs 30:8-9 (NIV): 'Keep falsehood and lies far from me; give me neither poverty nor riches, but give me only my daily bread. Otherwise, I may have too much and disown you and say, 'Who is the Lord?' Or I may become poor and steal, and so dishonor the name of my God.'\n\n1 Timothy 6:6 (NIV): 'But godliness with contentment is great gain.'", 
+                reflection: "Like the narrator, we often confuse self-worth with social standing or material possession. The 'sweetness' of a perceived better life (wealth, popularity, luxury) can tempt us to compromise our integrity, leading to shame and alienation. True contentment, as taught in the Bible, is an active choice to trust God's provision and find value in who we are, not what we can acquire or whom we can impress. Our focus should be on our 'daily bread'—spiritual and physical needs—rather than the unreachable cake of the world.\n\n<span class='font-bold'>What 'unreachable cake' (coveted status, possession, or relationship) is currently consuming your focus, and how is that desire distracting you from the true contentment found in your daily, God-given provision?</span>",
+            } 
+        },
+        // --- Midsummer Content Added ---
+        { 
+            id: 3, 
+            title: "Midsummer", 
+            author: "Manuel Arguilla", 
+            type: "Philippine Literature", 
+            fullText: "https://xpressenglish.com/our-stories/midsummer/", 
+            summary: "During the intense heat of midsummer in a rural Philippine province, a young man, Ading, encounters a captivating, strong woman, Manang Biday, at a well. The initial encounter is marked by unspoken, simmering tension as Biday attempts to water her carabao. Ading is drawn to her physical strength and natural beauty, which is amplified by the harsh midday sun. After their brief interaction, Ading finds himself strangely affected, and the story concludes with his lingering thoughts of Biday as he walks home, symbolizing the powerful, elemental, and unbidden nature of attraction and connection in the simplicity of rural life.",
+            analysis: { 
+                title: "The Elemental Power of Attraction and Purity of Desire", 
+                insight: "The story captures the raw, physical, and immediate force of human attraction, set against the backdrop of an unspoiled natural world. It illustrates that desire, when kept pure and within honorable bounds (as Ading’s unspoken attraction remains), is a powerful gift from God. The intense heat symbolizes the testing fire of emotion, which must be treated with respect and purity, rather than license.", 
+                evidentialText: "He stood watching the graceful though matter-of-fact movements of the woman, the full, firm rounding of her breasts under the wet camisa. He had never seen such a woman before.", 
+                scripture: "Proverbs 4:23 (NIV): 'Above all else, guard your heart, for everything you do flows from it.'\n\n1 Thessalonians 4:3-5 (NIV): 'It is God’s will that you should be sanctified: that you should avoid sexual immorality; that each of you should learn to control your own body in a way that is holy and honorable, not in passionate lust like the pagans, who do not know God.'", 
+                reflection: "The midsummer heat represents the intense pressure of our emotions and the temptations of the flesh. Like Ading, we encounter captivating people and situations that stir deep desire. The biblical principle is not to deny the emotion but to control the response, guarding the heart (Proverbs 4:23). True honor means recognizing the beauty of attraction while channeling that energy into respect and purity, preventing lawful desire from turning into sinful lust, thus honoring both God and the other person.\n\n<span class='font-bold'>When faced with strong, natural desire, what active spiritual practice do you use to ensure your response is honorable and controlled, rather than giving in to passionate lust?</span>",
+            } 
+        },
+        { id: 4, title: "Magnificence", author: "Estrella Alfon", type: "Philippine Literature", fullText: "Full story URL placeholder.", analysis: { title: "Placeholder: The Protection of the Innocent", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 5, title: "The Summer Solstice", author: "Nick Joaquin", type: "Philippine Literature", fullText: "Full story URL placeholder.", analysis: { title: "Placeholder: Authority, Submission, and Power", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 6, title: "The Mats", author: "Francisco Arcellana", type: "Philippine Literature", fullText: "Full story URL placeholder.", analysis: { title: "Placeholder: Grief, Memory, and the Resurrection Hope", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
 
         // --- Canonical World Literature ---
-        { id: 7, title: "The Necklace", author: "Guy de Maupassant", type: "World Literature", analysis: { title: "Placeholder: Vanity and the True Cost of Deception", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
-        { id: 8, title: "The Gift of the Magi", author: "O. Henry", type: "World Literature", analysis: { title: "Placeholder: Sacrificial Love vs. Worldly Wisdom", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
-        { id: 9, title: "How Much Land Does a Man Need?", author: "Leo Tolstoy", type: "World Literature", analysis: { title: "Placeholder: The Tyranny of Greed", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
-        { id: 10, title: "The Lottery", author: "Shirley Jackson", type: "World Literature", analysis: { title: "Placeholder: Blind Tradition and Moral Cowardice", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
-        { id: 11, title: "Daedalus and Icarus", author: "Greek Myth", type: "Mythology", analysis: { title: "Placeholder: The Peril of Pride and Disobedience", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
-        { id: 12, title: "The Most Dangerous Game", author: "Richard Connell", type: "World Literature", analysis: { title: "Placeholder: The Depravity of the Human Heart", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
-        { id: 13, title: "The Bet", author: "Anton Chekhov", type: "World Literature", analysis: { title: "Placeholder: The Futility of Earthly Wealth and Wisdom", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
-        { id: 14, title: "The Cask of Amontillado", author: "Edgar Allan Poe", type: "World Literature", analysis: { title: "Placeholder: The Darkness of Unjustified Vengeance", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
-        { id: 15, title: "The Black Cat", author: "Edgar Allan Poe", type: "World Literature", analysis: { title: "Placeholder: The Spiral of Sin and Self-Deception", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
-        { id: 16, title: "A Tell Tale Heart", author: "Edgar Allan Poe", type: "World Literature", analysis: { title: "Placeholder: The Conscience and the Revelation of Guilt", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
-        { id: 17, title: "Araby", author: "James Joyce", type: "World Literature", analysis: { title: "Placeholder: Idolatry and the Empty Promise of the World", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
-        { id: 18, title: "A Rose for Emily", author: "William Faulkner", type: "World Literature", analysis: { title: "Placeholder: Isolation and the Denial of Time", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
-        { id: 19, title: "The Pedestrian", author: "Ray Bradbury", type: "World Literature", analysis: { title: "Placeholder: The Call to Separate from the Crowd", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
-        { id: 20, title: "Hills Like White Elephants", author: "Ernest Hemingway", type: "World Literature", analysis: { title: "Placeholder: The Unspoken Weight of Choice", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 7, title: "The Necklace", author: "Guy de Maupassant", type: "World Literature", fullText: "Full story URL placeholder.", analysis: { title: "Placeholder: Vanity and the True Cost of Deception", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 8, title: "The Gift of the Magi", author: "O. Henry", type: "World Literature", fullText: "Full story URL placeholder.", analysis: { title: "Placeholder: Sacrificial Love vs. Worldly Wisdom", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 9, title: "How Much Land Does a Man Need?", author: "Leo Tolstoy", type: "World Literature", fullText: "Full story URL placeholder.", analysis: { title: "Placeholder: The Tyranny of Greed", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 10, title: "The Lottery", author: "Shirley Jackson", type: "World Literature", fullText: "Full story URL placeholder.", analysis: { title: "Placeholder: Blind Tradition and Moral Cowardice", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 11, title: "Daedalus and Icarus", author: "Greek Myth", type: "Mythology", fullText: "Full story URL placeholder.", analysis: { title: "Placeholder: The Peril of Pride and Disobedience", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 12, title: "The Most Dangerous Game", author: "Richard Connell", type: "World Literature", fullOnly: "Full story URL placeholder.", analysis: { title: "Placeholder: The Depravity of the Human Heart", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 13, title: "The Bet", author: "Anton Chekhov", type: "World Literature", fullText: "Full story URL placeholder.", analysis: { title: "Placeholder: The Futility of Earthly Wealth and Wisdom", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 14, title: "The Cask of Amontillado", author: "Edgar Allan Poe", type: "World Literature", fullText: "Full story URL placeholder.", analysis: { title: "Placeholder: The Darkness of Unjustified Vengeance", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 15, title: "The Black Cat", author: "Edgar Allan Poe", type: "World Literature", fullText: "Full story URL placeholder.", analysis: { title: "Placeholder: The Spiral of Sin and Self-Deception", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 16, title: "A Tell Tale Heart", author: "Edgar Allan Poe", type: "World Literature", fullText: "Full story URL placeholder.", analysis: { title: "Placeholder: The Conscience and the Revelation of Guilt", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 17, title: "Araby", author: "James Joyce", type: "World Literature", fullText: "Full story URL placeholder.", analysis: { title: "Placeholder: Idolatry and the Empty Promise of the World", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 18, title: "A Rose for Emily", author: "William Faulkner", type: "World Literature", fullText: "Full story URL placeholder.", analysis: { title: "Placeholder: Isolation and the Denial of Time", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 19, title: "The Pedestrian", author: "Ray Bradbury", type: "World Literature", fullText: "Full story URL placeholder.", analysis: { title: "Placeholder: The Call to Separate from the Crowd", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
+        { id: 20, title: "Hills Like White Elephants", author: "Ernest Hemingway", type: "World Literature", fullText: "Full story URL placeholder.", analysis: { title: "Placeholder: The Unspoken Weight of Choice", insight: "Analysis coming soon...", scripture: "Placeholder verse...", evidentialText: "Placeholder quote..."} },
     ];
 
     // --- Core Functions ---
@@ -164,15 +212,17 @@
         storiesData.forEach(story => {
             const isPhilippine = story.type.includes('Philippine');
             const typeLabel = isPhilippine ? 'Philippine' : 'World';
-            const typeColor = isPhilippine ? 'text-wine-red' : 'text-teal';
+            // Use the dark text and the secondary accent color for contrast on the light background
+            const typeColor = isPhilippine ? 'text-primary-accent' : 'text-secondary-accent';
 
             const cardHtml = `
-                <div onclick="showDetailView(${story.id})" class="story-link glass-card p-4 rounded-xl shadow-lg hover:ring-2 hover:ring-gold flex justify-between items-center">
+                <div onclick="showDetailView(${story.id})" class="story-link glass-card p-4 rounded-xl shadow-lg hover:ring-2 hover:ring-secondary-accent flex justify-between items-center">
                     <div>
                         <h3 class="text-xl font-bold">${story.title}</h3>
-                        <p class="text-sm text-off-white/70">by ${story.author}</p>
+                        <p class="text-sm text-dark-text/70">by ${story.author}</p>
                     </div>
-                    <span class="text-xs font-semibold px-3 py-1 rounded-full bg-gold/80 ${typeColor}">
+                    <!-- Using the light off-white background with the accent text -->
+                    <span class="text-xs font-semibold px-3 py-1 rounded-full bg-off-white ${typeColor} shadow">
                         ${typeLabel}
                     </span>
                 </div>
@@ -185,52 +235,86 @@
     function renderStoryDetail(story) {
         const detailContainer = document.getElementById('detail-content');
         const analysis = story.analysis;
+        
+        // This splits the reflection text for proper formatting: paragraph followed by bold question
+        // We use a specific delimiter (e.g., newline + newline) to denote the start of the question.
+        const reflectionParts = analysis.reflection.split('\n\n');
+        const reflectionParagraph = reflectionParts[0];
+        
+        // For the question, we remove the existing <span> wrapper from the JavaScript string and apply the font-bold class directly.
+        let reflectionQuestion = '';
+        if (reflectionParts.length > 1) {
+            // Remove the hardcoded span tags from the string part before putting it in a new paragraph
+            const cleanedQuestion = reflectionParts[1].replace(/<\/?span[^>]*>/g, '').replace(/\*\*/g, '');
+            reflectionQuestion = `<p class='pt-4 font-bold text-dark-text'>${cleanedQuestion}</p>`;
+        }
+
 
         // Base structure for analysis
         let detailHtml = `
-            <h2 class="text-3xl font-extrabold text-gold text-center border-b pb-3 border-off-white/30">${story.title}</h2>
-            <p class="text-md text-off-white/70 text-center mb-4">A look at the work of ${story.author} through the lens of Scripture.</p>
+            <!-- Title uses the secondary accent (ochre) -->
+            <h2 class="text-3xl font-extrabold text-secondary-accent text-center border-b pb-3 border-primary-accent/30">${story.title}</h2>
+            <p class="text-md text-dark-text/70 text-center mb-4">A look at the work of ${story.author} through the lens of Scripture.</p>
 
-            <!-- Story Summary Card -->
-            <div class="glass-card p-4 rounded-xl space-y-2">
-                <h3 class="text-xl font-bold text-teal">Story Summary</h3>
-                <p class="text-sm text-off-white/90">${story.summary || analysis.insight.replace('Placeholder: ', '')}</p>
-            </div>
+            <!-- External Read Full Story Link uses the primary accent (blue) -->
+            <a href="${story.fullText}" target="_blank" class="w-full inline-flex justify-center items-center text-sm font-medium rounded-full px-4 py-3 bg-primary-accent text-off-white shadow-lg transition duration-200 hover:bg-opacity-90">
+                Read Full Story (External Link)
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+            </a>
+            
+            <div class="space-y-6 pt-4">
 
-            <!-- Biblical Insight Card -->
-            <div class="glass-card p-4 rounded-xl space-y-3 border-l-4 border-gold">
-                <h3 class="text-xl font-bold">${analysis.title.replace('Placeholder: ', 'Biblical Insight: ')}</h3>
-                <p class="text-sm text-off-white/90 leading-relaxed">${analysis.insight.replace('Placeholder: ', '')}</p>
-            </div>
-
-            <!-- Evidential Text & Scripture Card -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="glass-card p-4 rounded-xl border-r-4 border-wine-red">
-                    <h4 class="text-lg font-semibold text-wine-red">Evidential Text (Story Quote)</h4>
-                    <p class="text-xs italic text-off-white/80 mt-2 leading-loose">
-                        "${analysis.evidentialText.replace('Placeholder quote...', '...')}"
-                    </p>
+                <!-- Story Summary Card - NO BORDERS -->
+                <div class="inner-box p-4 rounded-xl space-y-2">
+                    <h3 class="text-xl font-bold text-secondary-accent">Story Summary</h3>
+                    <p class="text-sm text-dark-text/90">${story.summary || analysis.insight.replace('Placeholder: ', '')}</p>
                 </div>
-                <div class="glass-card p-4 rounded-xl border-l-4 border-teal">
-                    <h4 class="text-lg font-semibold text-teal">Relevant Scripture</h4>
-                    <p class="text-xs font-mono text-off-white/80 whitespace-pre-line mt-2 leading-loose">
-                        ${analysis.scripture.replace('Placeholder verse...', '...')}</p>
+
+                <!-- Biblical Insight Card - NO BORDERS, using primary accent text for emphasis -->
+                <div class="inner-box p-4 rounded-xl space-y-3">
+                    <h3 class="text-xl font-bold text-primary-accent">${analysis.title.replace('Placeholder: ', 'Biblical Insight: ')}</h3>
+                    <p class="text-sm text-dark-text/90 leading-relaxed">${analysis.insight.replace('Placeholder: ', '')}</p>
                 </div>
+
+                <!-- Evidential Text & Scripture Card - NO BORDERS, using text color for distinction -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="inner-box p-4 rounded-xl">
+                        <!-- Evidential Text uses Secondary Accent -->
+                        <h4 class="text-lg font-semibold text-secondary-accent">Evidential Text (Story Quote)</h4>
+                        <p class="text-xs italic text-dark-text/80 mt-2 leading-loose">
+                            "${analysis.evidentialText.replace('Placeholder quote...', '...')}"
+                        </p>
+                    </div>
+                    <div class="inner-box p-4 rounded-xl">
+                        <!-- Scripture uses Primary Accent -->
+                        <h4 class="text-lg font-semibold text-primary-accent">Relevant Scripture</h4>
+                        <p class="text-xs font-mono text-dark-text/80 whitespace-pre-line mt-2 leading-loose">
+                            ${analysis.scripture.replace('Placeholder verse...', '...')}</p>
+                    </div>
+                </div>
+
+                <!-- Further Reflection - uses a light background with the primary accent text -->
+                ${analysis.reflection ? `<div class="p-4 rounded-xl bg-primary-accent/10 shadow-inner">
+                    <h4 class="text-lg font-semibold text-primary-accent">Further Reflection</h4>
+                    <p class="text-sm text-dark-text/90 mt-2">${reflectionParagraph}</p>
+                    ${reflectionQuestion}
+                </div>` : ''}
+
+                <!-- Small, less noticeable reflection text -->
+                <p class="text-center text-xs italic text-dark-text/40 pt-2">This analysis is designed for critical and spiritual reflection.</p>
             </div>
-
-            <!-- Further Reflection -->
-            ${analysis.reflection ? `<div class="p-4 rounded-xl bg-wine-red/40 border border-wine-red shadow-inner">
-                <h4 class="text-lg font-semibold text-gold">Further Reflection</h4>
-                <p class="text-sm text-off-white/90 mt-2">${analysis.reflection}</p>
-            </div>` : ''}
-
-            <p class="text-center text-sm italic text-off-white/60 pt-4">This analysis is designed for critical and spiritual reflection.</p>
         `;
 
         detailContainer.innerHTML = detailHtml;
     }
 
     // --- Navigation Functions ---
+    
+    // The toggleFullStory function is no longer needed but kept for context.
+    /* function toggleFullStory() { ... } */
+
 
     function showDetailView(id) {
         const story = storiesData.find(s => s.id === id);
